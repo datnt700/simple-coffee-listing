@@ -20,6 +20,7 @@ const globalStyles = css`
     margin: 0;
     font-family: 'DM Sans', sans-serif;
     font-optical-sizing: auto;
+    background-color: #1b1d1f;
   }
 
   p,
@@ -32,20 +33,16 @@ const globalStyles = css`
 `;
 
 const containerStyles = css`
-  background-color: #1b1d1f;
   background-image: url(${backGround});
   background-repeat: no-repeat;
   background-size: contain;
   text-align: center;
-  @media (min-width: 1280px) {
-    height: 100vh;
-  }
 `;
 
 const collectionStyles = css`
-  padding: 3.5rem 1rem 0;
+  padding: 3.5rem 1rem 3rem;
   @media (min-width: 640px) {
-    padding: 3.5rem 5rem 0;
+    padding: 3.5rem 5rem 3rem;
   }
 `;
 const contentStyles = css`
