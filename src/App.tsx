@@ -1,9 +1,86 @@
+/** @jsxImportSource @emotion/react */
+import { css, Global } from '@emotion/react';
 import { useEffect, useState } from 'react';
 import './App.scss';
 import axios from 'axios';
 import { Card } from './components/Card';
 import { Tab } from './components/Tab';
 import { Introduction } from './components/Introduction';
+import backGround from './assets/bg-cafe.jpg';
+
+const globalStyles = css`
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+  * {
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    padding: 0;
+    margin: 0;
+    font-family: 'DM Sans', sans-serif;
+    font-optical-sizing: auto;
+  }
+
+  p,
+  h1,
+  h3,
+  ul {
+    margin: 0;
+    padding: 0;
+  }
+`;
+
+const containerStyles = css`
+  background-color: #1b1d1f;
+  background-image: url(${backGround});
+  background-repeat: no-repeat;
+  background-size: contain;
+  text-align: center;
+  @media (min-width: 1280px) {
+    height: 100vh;
+  }
+`;
+
+const collectionStyles = css`
+  padding: 3.5rem 1rem 0;
+  @media (min-width: 640px) {
+    padding: 3.5rem 5rem 0;
+  }
+`;
+const contentStyles = css`
+  padding: 5rem 2.5rem;
+  background-color: #111315;
+  border-radius: 0.6rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  @media (min-width: 640px) {
+    padding: 5rem 4rem;
+  }
+  @media (min-width: 1024px) {
+    padding: 5rem 5rem;
+  }
+  @media (min-width: 1280px) {
+    padding: 5rem 8rem;
+  }
+`;
+
+const listCardStyles = css`
+  margin-top: 2.6rem;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 4rem;
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (min-width: 1280px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+`;
 
 interface CardObject {
   id: number;
@@ -25,24 +102,11 @@ function App() {
       const result = await axios.get(
         'https://raw.githubusercontent.com/devchallenges-io/web-project-ideas/main/front-end-projects/data/simple-coffee-listing-data.json'
       );
-      console.log(result.data);
-      const formattedData = result.data.map((item: CardObject) => ({
-        id: item.id,
-        image: item.image,
-        name: item.name,
-        popular: item.popular,
-        price: item.price,
-        rating: item.rating,
-        votes: item.votes,
-        available: item.available,
-      }));
-      setCardData(formattedData);
+      setCardData(result.data);
     } catch (error) {
       console.log(error);
     }
   };
-
-  console.log(cardData);
 
   useEffect(() => {
     getData();
@@ -60,36 +124,39 @@ function App() {
   };
 
   return (
-    <div className="container">
-      <div className="collection">
-        <div className="content">
-          <Introduction />
-          <Tab
-            clickEventTab1={handleTab1Click}
-            clickEventTab2={handleTab2Click}
-            tabActive={tabActive}
-          />
-          <div className="list-card">
-            {cardData ? (
-              cardData.map((card) => (
-                <Card
-                  key={card.id}
-                  image={card.image}
-                  name={card.name}
-                  popular={card.popular}
-                  price={card.price}
-                  rating={card.rating}
-                  votes={card.votes}
-                  available={card.available}
-                />
-              ))
-            ) : (
-              <></>
-            )}
+    <>
+      <Global styles={globalStyles} />
+      <div css={containerStyles}>
+        <div css={collectionStyles}>
+          <div css={contentStyles}>
+            <Introduction />
+            <Tab
+              clickEventTab1={handleTab1Click}
+              clickEventTab2={handleTab2Click}
+              tabActive={tabActive}
+            />
+            <div css={listCardStyles}>
+              {cardData ? (
+                cardData.map((card) => (
+                  <Card
+                    key={card.id}
+                    image={card.image}
+                    name={card.name}
+                    popular={card.popular}
+                    price={card.price}
+                    rating={card.rating}
+                    votes={card.votes}
+                    available={card.available}
+                  />
+                ))
+              ) : (
+                <></>
+              )}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
