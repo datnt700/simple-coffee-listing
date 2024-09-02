@@ -9,6 +9,7 @@ body {
   margin: 0;
   font-family: 'DM Sans', sans-serif;
   font-optical-sizing: auto;
+  background-color: #1b1d1f;
 }
 
 p,
@@ -20,8 +21,6 @@ ul {
 }
 
 .container {
-  background-color: #1b1d1f;
-  height: 100%;
   background-image: url('./assets/bg-cafe.jpg');
   background-repeat: no-repeat;
   background-size: contain;
@@ -29,7 +28,7 @@ ul {
 }
 
 .collection {
-  padding: 3.5rem 1rem 0;
+  padding: 3.5rem 1rem 2rem;
 }
 
 .content {
@@ -51,7 +50,7 @@ ul {
 
 @media screen and (min-width: 640px) {
   .collection {
-    padding: 3.5rem 5rem 0;
+    padding: 3.5rem 5rem 2rem;
   }
   .content {
     padding: 5rem 4rem;
