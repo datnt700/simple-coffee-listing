@@ -1,43 +1,30 @@
 import styles from './Tab.module.scss';
 
+interface Tab {
+  label: string;
+  id: string;
+  onClick: () => void;
+}
+
 interface TabProps {
-  clickEventTab1: () => void;
-  clickEventTab2: () => void;
+  tabs: Tab[];
   tabActive: string;
 }
 
-export const Tab = ({
-  clickEventTab1,
-  clickEventTab2,
-  tabActive,
-}: TabProps) => {
+export const Tab = ({ tabs, tabActive }: TabProps) => {
   return (
     <div className={styles.tabs}>
       <ul className={styles['tab-list']}>
-        <li>
-          <button
-            onClick={clickEventTab1}
-            className={
-              tabActive === 'all'
-                ? `${styles.tab} ${styles.all} ${styles.active}`
-                : `${styles.tab} ${styles.all}`
-            }
-          >
-            All Products
-          </button>
-        </li>
-        <li>
-          <button
-            onClick={clickEventTab2}
-            className={
-              tabActive === 'available'
-                ? `${styles.tab} ${styles.available} ${styles.active}`
-                : `${styles.tab} ${styles.available}`
-            }
-          >
-            Available Now
-          </button>
-        </li>
+        {tabs.map((tab) => (
+          <li key={tab.id}>
+            <button
+              onClick={tab.onClick}
+              className={`${styles.tab}  ${tab.id === tabActive && styles.active}`}
+            >
+              {tab.label}
+            </button>
+          </li>
+        ))}
       </ul>
     </div>
   );
