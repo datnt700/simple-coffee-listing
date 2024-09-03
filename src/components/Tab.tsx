@@ -28,36 +28,31 @@ const activeStyles = css({
   backgroundColor: '#6f757c',
 });
 
-interface TabProps {
-  clickEventTab1: () => void;
-  clickEventTab2: () => void;
-  tabActive: string;
+interface Tab {
+  label: string;
+  id: string;
+  onClick: () => void;
 }
 
-export const Tab = ({
-  clickEventTab1,
-  clickEventTab2,
-  tabActive,
-}: TabProps) => {
+interface TabProps {
+  tabs: Tab[];
+  activeTabId: string;
+}
+
+export const Tab = ({ tabs, activeTabId }: TabProps) => {
   return (
     <div css={tabsStyles}>
       <ul css={tabListStyles}>
-        <li>
-          <button
-            onClick={clickEventTab1}
-            css={[tabStyles, tabActive === 'all' && activeStyles]}
-          >
-            All Products
-          </button>
-        </li>
-        <li>
-          <button
-            onClick={clickEventTab2}
-            css={[tabStyles, tabActive === 'available' && activeStyles]}
-          >
-            Available Now
-          </button>
-        </li>
+        {tabs.map((tab) => (
+          <li key={tab.id}>
+            <button
+              onClick={tab.onClick}
+              css={[tabStyles, activeTabId === tab.id && activeStyles]}
+            >
+              {tab.label}
+            </button>
+          </li>
+        ))}
       </ul>
     </div>
   );
