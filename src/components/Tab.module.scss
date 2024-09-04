@@ -1,0 +1,24 @@
+.tabs {
+  font-size: 0.875rem;
+  margin-top: 1.2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .tab-list {
+    display: flex;
+    gap: 0.8rem;
+  }
+  .tab {
+    padding: 0.5rem 0.7rem;
+    border: none;
+    border-radius: 0.6rem;
+    outline: none;
+    background-color: transparent;
+    color: #fef7ee;
+    cursor: pointer;
+    &.active {
+      background-color: #6f757c;
+    }
+  }
+}
